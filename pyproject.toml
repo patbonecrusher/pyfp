@@ -1,11 +1,30 @@
+[tool.pyright]
+reportUnknownLambdaType = false
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+exclude = ["__pypackages__"]
+
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest~=6.2",
+    "pytest-cov~=2.12",
+    "pytest-testmon~=1.2",
+    "pytest-json-report~=1.4",
+    "pytest-watcher~=0.2",
+]
+
 [project]
-name = ""
-version = ""
+name = "MyPythonPDMFun"
+version = "1.0"
 description = ""
 authors = [
-    {name = "", email = ""},
+    {name = "pat laplante", email = "laplante.patrick@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "pyramda~=0.1",
+    "pure-python-adb<1,>=0.3.0.dev0",
+]
 requires-python = ">=3.9"
 dynamic = ["classifiers"]
 license = {text = "MIT"}
@@ -13,12 +32,20 @@ license = {text = "MIT"}
 [project.urls]
 homepage = ""
 
+
+[project.optional-dependencies]
 [build-system]
 requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
 
-[tool.pyright]
-reportUnknownLambdaType = false
-reportMissingTypeStubs = false
-reportUnknownMemberType = false
-exclude = ["__pypackages__"]
+[tool.pdm.scripts]
+cov = {shell = "pdm run pytest --cov=. --cov-report=xml"}
+tdd = {shell = "pdm run ptw --delay 2 ."}
+
+# pyproject.toml
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    "src/function"
+]

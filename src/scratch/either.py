@@ -1,7 +1,6 @@
 # Either = Right || Left
 
 from __future__ import annotations
-from pyramda import map as map
 from typing import Any
 from typing import Callable
 from typing import NewType, Union

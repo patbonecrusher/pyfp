@@ -5,7 +5,7 @@ from __future__ import annotations
 # Here we know because of the algebra, we can actually concat the inner part first and then the one, two, and we will get the same results. That property is called associativity. We could do the same with strings because that is also a semigroup.
 
 
-from pyramda import map as map, reduce
+from functools import reduce
 from typing import Any, Dict, List
 import itertools
 
@@ -34,7 +34,9 @@ print(Sum(1).concat(Sum(2)))
 print(Sum.empty().concat(Sum(1).concat(Sum(2))))
 
 def foldMap(list: List[Any], empty: Any) -> Any:
-    return reduce(lambda acc,x: acc.concat(x), empty, list)
+    # functools.reduce takes (fn, iterable, initial) — note the arg order
+    # differs from pyramda.reduce(fn, initial, iterable).
+    return reduce(lambda acc,x: acc.concat(x), list, empty)
 
 
 r = foldMap(map(Sum, [1,2,3,4]), Sum.empty())

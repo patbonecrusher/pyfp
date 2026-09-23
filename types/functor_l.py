@@ -4,7 +4,6 @@ from __future__ import annotations
 import abc
 from typing import Generic, TypeVar, Callable, Union
     #Dict, List, Tuple, Set, Text, Any
-import pandas as pd 
 
 
 A = TypeVar('A')
@@ -47,16 +46,9 @@ def fmap(f: Callable[[A], B], fmappable: FMappable) -> FMappable:
     #     )
     # raise TypeError('argument fmappable is not an instance of FMappable')
 
-class FSeries(pd.Series, Functor): 
-    def fmap(self, f): 
-        return self.apply(f).astype(self.dtype)
-
-
 print(fmap(lambda x: x * 2, [1, 2, 3]) )
 
 print(fmap(lambda x: x * 2, {'one': 1, 'two': 2, 'three': 3}))
-
-print(fmap(lambda x: x * 2, FSeries([1, 2, 3], index=['one', 'two', 'three'])))
 
 class FDict(dict, Functor):
     def fmap(self, f):

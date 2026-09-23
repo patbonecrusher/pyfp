@@ -3,7 +3,6 @@
 
 import abc
 from typing import Generic, TypeVar, Callable, Any, Dict
-import pandas as pd 
 
 
 A = TypeVar('A')
@@ -30,17 +29,8 @@ def fmap(f: Callable[..., Any], fmappable: FMappable) -> FMappable:
 
 F = TypeVar('F', bound=Callable[[Any], Any])
 
-class FSeries(pd.Series, Functor[A]):
-    def fmap(self, f: Callable[[A], A]) -> 'FSeries[A]':
-        """
-        f: Function callback that take a pandas Series and return a panda Series
-        """
-        return FSeries(self.apply(f))
-
-
 print(fmap(lambda x: x * 2, [1, 2, 3]) )
 print(fmap(lambda x: x * 2, {'one': 1, 'two': 2, 'three': 3}))
-print(fmap(lambda x: float(x*3), FSeries([1, 2, 3], index=['one', 'two', 'three'])))
 
 K = TypeVar('K')
 V = TypeVar('V')

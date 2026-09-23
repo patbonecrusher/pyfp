@@ -113,15 +113,14 @@ print(fmap({1,2,3}, str))
 print(fmap([1,2,3], str))
 print(fmap('abcd', str))
 
-import pandas as pd 
+# fmap is open for extension — register it for any new type.
+# (This originally demoed a pandas Series; a plain tuple makes the same
+#  point with no third-party dependency.)
+@fmap.register(tuple)
+def _(t, fn):
+    return tuple(fn(x) for x in t)
 
-print("a")
-@fmap.register(pd.Series)
-def _(d, fn):
-    return d.apply(fn)
-
-print(fmap(pd.Series([1, 2, 3], index=['one', 'two', 'three']), lambda x: x * 2))
-print("a")
+print(fmap((1, 2, 3), str))
 
 """
 ? Now we can do nested fmap

@@ -1,50 +1,37 @@
-[tool.pyright]
-reportUnknownLambdaType = false
-reportMissingTypeStubs = false
-reportUnknownMemberType = false
-exclude = ["__pypackages__"]
-
-[tool.pdm]
-[tool.pdm.dev-dependencies]
-dev = [
-    "pytest~=6.2",
-    "pytest-cov~=2.12",
-    "pytest-testmon~=1.2",
-    "pytest-json-report~=1.4",
-    "pytest-watcher~=0.2",
-]
-
 [project]
-name = "MyPythonPDMFun"
+name = "pyfp"
 version = "1.0"
-description = ""
+description = "A playground for functional-programming concepts in Python"
 authors = [
     {name = "pat laplante", email = "laplante.patrick@gmail.com"},
 ]
-dependencies = [
-    "pure-python-adb<1,>=0.3.0.dev0",
-]
+readme = "readme.MD"
 requires-python = ">=3.9"
-dynamic = ["classifiers"]
 license = {text = "MIT"}
+# No runtime dependencies: everything runs on the standard library.
+dependencies = []
 
-[project.urls]
-homepage = ""
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-cov>=5",
+    "pytest-watcher>=0.4",
+]
 
+[tool.uv]
+# This is a collection of scripts, not an installable package, so uv should
+# manage the environment without trying to build/install the project itself.
+package = false
 
-[project.optional-dependencies]
-[build-system]
-requires = ["pdm-pep517"]
-build-backend = "pdm.pep517.api"
-
-[tool.pdm.scripts]
-cov = {shell = "pdm run pytest --cov=. --cov-report=xml"}
-tdd = {shell = "pdm run ptw --delay 2 ."}
-
-# pyproject.toml
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q"
 testpaths = [
-    "src/function"
+    "src/function",
 ]
+
+[tool.pyright]
+reportUnknownLambdaType = false
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+exclude = ["__pypackages__", ".venv"]

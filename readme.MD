@@ -2,6 +2,29 @@
 
 Doing this class [class](https://egghead.io/lessons/javascript-refactoring-imperative-code-to-a-single-composed-expression-using-box) in python
 
+## Getting started
+
+This project uses [uv](https://docs.astral.sh/uv/) to manage the Python
+environment. Install uv (`brew install uv` or
+`curl -LsSf https://astral.sh/uv/install.sh | sh`), then:
+
+```sh
+uv sync                       # create .venv and install dev dependencies
+uv run pytest                 # run the test suite (src/function)
+uv run pytest --cov=. --cov-report=xml   # tests with coverage
+uv run ptw --delay 2 .        # watch mode (re-run tests on change)
+```
+
+The scratch files under `src/scratch/` and `types/` are runnable scripts that
+print their output — run any of them directly:
+
+```sh
+uv run python src/scratch/either.py
+uv run python types/functor.py
+```
+
+There are no runtime dependencies; everything runs on the standard library.
+
 ## Terminology
 
 ### Functor
